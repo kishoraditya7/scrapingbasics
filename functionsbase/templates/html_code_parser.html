@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Code - {{ parser }}</title>
+</head>
+<body>
+    <h1>HTML Code - {{ parser }}</h1>
+    {% if html_content %}
+        <pre>{{ html_content }}</pre>
+    {% else %}
+        <p>Error occurred while scraping the website with {{ parser }} parser</p>
+    {% endif %}
+</body>
+</html>

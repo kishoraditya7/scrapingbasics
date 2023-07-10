@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Check robots.txt and HTML code</title>
+    </head>
+    <body>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="url" placeholder="Enter URL" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        
+    </body>
+</html>

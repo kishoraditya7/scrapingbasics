@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Results</title>
+    </head>
+    <body>
+        <h1>Results</h1>
+
+        <h2>Robots.txt</h2>
+        {% if has_robots_txt %}
+            <p><a href="/robots-txt/?url={{ url }}">robots.txt of {{ url }}</a></p>
+        {% else %}
+            <p>No robots.txt found for {{ url }}</p>
+        {% endif %}
+
+        <h2>HTML Code</h2>
+        {% if html_content %}
+            <p><a href="/html-code/?url={{ url }}">Full HTML code of {{ url }}</a></p>
+        {% else %}
+            <p>Error occurred while scraping the website</p>
+        {% endif %}
+
+        <h2>HTML Code with HTMLParser</h2>
+        {% if html_content_htmlparser %}
+            <p><a href="/html-code/htmlparser/?url={{ url }}">HTML code with HTMLParser of {{ url }}</a></p>
+        {% else %}
+            <p>Error occurred while scraping the website with HTMLParser</p>
+        {% endif %}
+
+        <h2>HTML Code with LXML</h2>
+        {% if html_content_lxml %}
+            <p><a href="/html-code/lxml/?url={{ url }}">HTML code with LXML of {{ url }}</a></p>
+        {% else %}
+            <p>Error occurred while scraping the website with LXML</p>
+        {% endif %}
+
+        <h2>HTML Code with HTML5lib</h2>
+        {% if html_content_html5lib %}
+            <p><a href="/html-code/html5lib/?url={{ url }}">HTML code with HTML5lib of {{ url }}</a></p>
+        {% else %}
+            <p>Error occurred while scraping the website with HTML5lib</p>
+        {% endif %}
+
+        <h2>Parse Tree</h2>
+        {% if parse_tree %}
+            <p><a href="/parse-tree/?url={{ url }}">View Parse Tree</a></p>
+        {% else %}
+            <p>No parse tree available</p>
+        {% endif %}
+
+        
+    </body>
+</html>
