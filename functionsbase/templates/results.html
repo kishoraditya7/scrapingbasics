@@ -48,6 +48,33 @@
             <p>No parse tree available</p>
         {% endif %}
 
-        
+        <h2>Classes</h2>
+        {% if classes_url %}
+            <p><a href="{{ classes_url }}">Classes on {{ url }}</a></p>
+        {% else %}
+            <p>No classes found</p>
+        {% endif %}
+
+        <h2>Elements</h2>
+        {% if elements_url %}
+            <p><a href="{{ elements_url }}">Elements on {{ url }}</a></p>
+        {% else %}
+            <p>No elements found</p>
+        {% endif %}
+
+        <h2>Tags</h2>
+        {% if tags_url %}
+            <p><a href="{{ tags_url }}">Tags on {{ url }}</a></p>
+        {% else %}
+            <p>No tags found</p>
+        {% endif %}
+
+        <h2>Attributes</h2>
+        {% if attributes_url %}
+            <p><a href="{{ attributes_url }}">Attributes on {{ url }}</a></p>
+        {% else %}
+            <p>No attributes found</p>
+        {% endif %}
+
     </body>
 </html>

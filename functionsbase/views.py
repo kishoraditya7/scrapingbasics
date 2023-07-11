@@ -8,6 +8,10 @@ from .scraping_utils import (
     scrape_url_bs4_html5lib,
     get_base_url,
     get_parse_tree,
+    scrape_all_classes,
+    scrape_all_attributes,
+    scrape_all_elements,
+    scrape_all_tags,
 )
 
 def index(request):
@@ -29,6 +33,14 @@ def results(request):
     html_content_html5lib = scrape_url_bs4_html5lib(url)
 
     parse_tree = get_parse_tree(html_content)
+    classes, class_groups = scrape_all_classes(html_content)
+    elements, element_groups = scrape_all_elements(html_content)
+    tags, tag_groups = scrape_all_tags(html_content)
+    attributes, attribute_groups = scrape_all_attributes(html_content)
+    classes_url = f"/classes/?url={url}"
+    elements_url = f"/elements/?url={url}"
+    tags_url = f"/tags/?url={url}"
+    attributes_url = f"/attributes/?url={url}"
     
     return render(request, 'results.html', {
         'url': url,
@@ -40,6 +52,18 @@ def results(request):
         'html_content_lxml': html_content_lxml,
         'html_content_html5lib': html_content_html5lib,
         'parse_tree': parse_tree,
+        'classes_url': classes_url,
+        'classes': classes,
+        'class_groups': class_groups,
+        'elements_url': elements_url,
+        'tags_url': tags_url,
+        'attributes_url': attributes_url,
+        'elements': elements,
+        'tags': tags,
+        'attributes': attributes,
+        'element_groups': element_groups,
+        'tag_groups' : tag_groups,
+        'attribute_groups':attribute_groups,
     })
 
 
@@ -91,4 +115,45 @@ def parse_tree(request):
         'url': url,
         'parse_tree': parse_tree,
     })
+
+def classes(request):
+    url = request.GET.get('url')
+    html_content = scrape_url(url)
+    classes, class_groups = scrape_all_classes(html_content)
+
+    return render(request, 'classes.html', {
+        'classes': classes,
+        'class_groups': class_groups,
+    })
+    
+def elements(request):
+    url = request.GET.get('url')
+    html_content = scrape_url(url)
+    elements, element_groups = scrape_all_elements(html_content)
+
+    return render(request, 'elements.html', {
+        'elements': elements,
+        'element_groups': element_groups,
+    })
+
+def tags(request):
+    url = request.GET.get('url')
+    html_content = scrape_url(url)
+    tags, tag_groups = scrape_all_tags(html_content)
+
+    return render(request, 'tags.html', {
+        'tags': tags,
+        'tag_groups': tag_groups,
+    })
+
+def attributes(request):
+    url = request.GET.get('url')
+    html_content = scrape_url(url)
+    attributes, attribute_groups = scrape_all_attributes(html_content)
+
+    return render(request, 'attributes.html', {
+        'attributes': attributes,
+        'attribute_groups': attribute_groups,
+    })
+    
 

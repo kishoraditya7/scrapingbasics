@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classes</title>
+</head>
+<body>
+    <h1>Classes</h1>
+
+    <h2>Individual Classes</h2>
+    {% if classes %}
+        <ul>
+            {% for class_name in classes %}
+                <li>{{ class_name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No individual classes found</p>
+    {% endif %}
+
+    <h2>Class Groups</h2>
+    {% if class_groups %}
+        <ul>
+            {% for class_group in class_groups %}
+                <li>{{ class_group }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No class groups found</p>
+    {% endif %}
+</body>
+</html>
