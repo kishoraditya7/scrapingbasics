@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Elements</title>
+</head>
+<body>
+    <h1>Elements</h1>
+
+    <h2>All Elements</h2>
+    {% if elements %}
+        <ul>
+            {% for element in elements %}
+                <li>{{ element }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No individual Elements found</p>
+    {% endif %}
+
+    <h2>Element Groups</h2>
+    {% if element_groups %}
+        <ul>
+            {% for element_group in element_groups %}
+                <li>{{ element_group }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Element groups found</p>
+    {% endif %}
+</body>
+</html>

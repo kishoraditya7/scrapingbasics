@@ -21,14 +21,19 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]"""
 from django.urls import path
-from functionsbase.views import index, results, robots_txt, html_code, parse_tree
+from functionsbase.views import index, results, robots_txt, html_code, html_code_parser,parse_tree, classes, elements, tags, attributes
 
 urlpatterns = [
     path('', index, name='index'),
     path('results/', results, name='results'),
     path('robots-txt/', robots_txt, name='robots_txt'),
     path('html-code/', html_code, name='html_code'),
+    path('html-code/<str:parser>/', html_code_parser, name='html_code_parser'),
     path('parse-tree/', parse_tree, name='parse_tree'),
+    path('classes/', classes, name='classes'),
+    path('elements/', elements, name='elements'),
+    path('tags/', tags, name='tags'),
+    path('attributes/', attributes, name='attributes'),
     ]
 
 

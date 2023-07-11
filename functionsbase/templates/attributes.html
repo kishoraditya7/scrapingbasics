@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attributes</title>
+</head>
+<body>
+    <h1>Attributes</h1>
+
+    <h2>Individual Attributes</h2>
+    {% if attributes %}
+        <ul>
+            {% for attribute in attributes %}
+                <li>{{ attribute }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No individual Attributes found</p>
+    {% endif %}
+
+    <h2>Atrribute Groups</h2>
+    {% if attribute_groups %}
+        <ul>
+            {% for attribute_group in attribute_groups %}
+                <li>{{ attribute_group }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Attribute groups found</p>
+    {% endif %}
+
+</body>
+</html>

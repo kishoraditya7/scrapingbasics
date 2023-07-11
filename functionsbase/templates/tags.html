@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tags</title>
+</head>
+<body>
+    <h1>Tags</h1>
+
+    <h2>All Tags</h2>
+    {% if tags %}
+        <ul>
+            {% for tag in tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No individual Tags found</p>
+    {% endif %}
+
+    <h2>Tag Groups</h2>
+    {% if tag_groups %}
+        <ul>
+            {% for tag_group in tag_groups %}
+                <li>{{ tag_group }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No Tag groups found</p>
+    {% endif %}
+</body>
+</html>
