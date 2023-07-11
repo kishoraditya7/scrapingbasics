@@ -15,5 +15,5 @@ elements commmit part 1:
 - [x] scrape  tags list 
 - [x] scrape  attributes list 
 
-elements commit part 2
+elements commit part 2 todo:
 make them clickable as filter
