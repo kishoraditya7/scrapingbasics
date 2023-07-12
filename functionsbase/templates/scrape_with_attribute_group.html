@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>group element</title>
+    </head>
+    <body>
+        {% if scraped_data %}
+    <ul>
+        {% for data in scraped_data %}
+            <li>{{ data }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No data found</p>
+{% endif %}
+
+
+
+    </body>
+</html>

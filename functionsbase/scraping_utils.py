@@ -63,6 +63,8 @@ def scrape_all_elements(html_content, parser='html.parser'):
     soup = BeautifulSoup(html_content, parser)
     elements = set()
     element_groups = []
+    value_elements = []
+    value_element_groups = []
 
     for tag in soup.find_all():
         elements.add(tag.name)
@@ -73,7 +75,17 @@ def scrape_all_elements(html_content, parser='html.parser'):
             attribute_names = sorted(tag.attrs.keys())
             element_group.extend(attribute_names)
         element_groups.append(', '.join(element_group))
-    return list(elements), list(element_groups)
+
+        # Find elements with values
+        value_element = f"{tag.name}: {tag.string}"
+        value_elements.append(value_element)
+
+        # Find element groups with values
+        value_element_group = f"{', '.join(element_group)}: {tag.string}"
+        value_element_groups.append(value_element_group)
+
+    return list(elements), list(element_groups), value_elements, value_element_groups
+
 
 
 def scrape_all_tags(html_content, parser='html.parser'):
@@ -101,11 +113,13 @@ def scrape_all_attributes(html_content, parser='html.parser'):
 
     for tag in soup.find_all():
         if tag.attrs:
-            attributes.update(tag.attrs.keys())
+            for attribute in tag.attrs:
+                attributes.add(attribute)
 
-            # Find attribute groups
-            attribute_group = sorted(tag.attrs.keys())
-            attribute_groups.append(', '.join(attribute_group))
+                # Find attribute groups
+                attribute_group = [attribute]
+                attribute_group.extend(sorted(tag.attrs.keys()))
+                attribute_groups.append(', '.join(attribute_group))
 
     return list(attributes), list(attribute_groups)
 
@@ -132,4 +146,51 @@ def scrape_with_class_group_helper(html_content, class_group):
     soup = BeautifulSoup(html_content, 'html.parser')
     selected_elements = soup.find_all(class_=class_group.split(','))
     scraped_data = [element.get_text(strip=True) for element in selected_elements]
+    return scraped_data
+
+
+def scrape_with_element(html_content, element):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(element)
+    scraped_data = [str(element) for element in selected_elements]
+    return scraped_data
+
+def scrape_with_tag(html_content, tag):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(tag)
+    scraped_data = [str(element) for element in selected_elements]
+    return scraped_data
+
+
+def scrape_with_attribute(html_content, attribute):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(attrs={attribute: True})
+    scraped_data = [str(element) for element in selected_elements]
+    return scraped_data
+
+def scrape_with_element_group(html_content, element_group):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.select(element_group)
+    scraped_data = [str(element) for element in selected_elements]
+    return scraped_data
+
+def scrape_with_attribute_group(html_content, attribute_group):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(attrs=parse_attribute_group(attribute_group))
+    scraped_data = [str(element) for element in selected_elements]
+    return scraped_data
+
+def parse_attribute_group(attribute_group):
+    attributes = attribute_group.split(',')
+    attribute_dict = {}
+    for attribute in attributes:
+        if '=' in attribute:
+            key, value = attribute.split('=')
+            attribute_dict[key.strip()] = value.strip()
+    return attribute_dict
+
+def scrape_with_tag_group(html_content, tag_group):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.select(tag_group)
+    scraped_data = [str(element) for element in selected_elements]
     return scraped_data

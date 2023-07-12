@@ -16,6 +16,13 @@ from .scraping_utils import (
     scrape_with_class_group,
     scrape_with_class_helper,
     scrape_with_class_group_helper,
+    scrape_with_tag as utils_scrape_with_tag,
+    scrape_with_attribute as utils_scrape_with_attribute,
+    scrape_with_element as utils_scrape_with_element,
+    scrape_with_attribute_group as utils_scrape_with_attribute_group,
+    scrape_with_element_group,
+    parse_attribute_group,
+    scrape_with_tag_group as utils_scrape_with_tag_group,
 )
 
 def index(request):
@@ -38,7 +45,7 @@ def results(request):
 
     parse_tree = get_parse_tree(html_content)
     classes, class_groups = scrape_all_classes(html_content)
-    elements, element_groups = scrape_all_elements(html_content)
+    elements, element_groups, value_elements, value_element_groups = scrape_all_elements(html_content)
     tags, tag_groups = scrape_all_tags(html_content)
     attributes, attribute_groups = scrape_all_attributes(html_content)
     classes_url = f"/classes/?url={url}"
@@ -68,6 +75,8 @@ def results(request):
         'element_groups': element_groups,
         'tag_groups' : tag_groups,
         'attribute_groups':attribute_groups,
+        'value_elements':value_elements, 
+        'value_element_groups':value_element_groups,
     })
 
 
@@ -134,11 +143,13 @@ def classes(request):
 def elements(request):
     url = request.GET.get('url')
     html_content = scrape_url(url)
-    elements, element_groups = scrape_all_elements(html_content)
+    elements, element_groups, value_elements, value_element_groups = scrape_all_elements(html_content)
 
     return render(request, 'elements.html', {
         'elements': elements,
         'element_groups': element_groups,
+        'value_elements': value_elements,
+        'value_element_groups': value_element_groups,
         'url': url,
     })
 
@@ -203,5 +214,127 @@ def scrape_with_class_group(request):
     return render(request, 'scrape_with_class_group.html', {
         'url': url,
         'class_group': class_group,
+        'scraped_data': None,
+    })
+    
+
+def scrape_with_element(request):
+    url = request.GET.get('url')
+    element = request.GET.get('element')
+
+    if url and element:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = utils_scrape_with_element(html_content, element)
+            return render(request, 'scrape_with_element.html', {
+                'url': url,
+                'element': element,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_element.html', {
+        'url': url,
+        'element': element,
+        'scraped_data': None,
+    })
+
+def scrape_with_tag(request):
+    url = request.GET.get('url')
+    tag = request.GET.get('tag')
+
+    if url and tag:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = utils_scrape_with_tag(html_content, tag)
+            return render(request, 'scrape_with_tag.html', {
+                'url': url,
+                'tag': tag,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_tag.html', {
+        'url': url,
+        'tag': tag,
+        'scraped_data': None,
+    })
+
+
+def scrape_with_attribute(request):
+    url = request.GET.get('url')
+    attribute = request.GET.get('attribute')
+
+    if url and attribute:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = utils_scrape_with_attribute(html_content, attribute)
+            return render(request, 'scrape_with_attribute.html', {
+                'url': url,
+                'attribute': attribute,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_attribute.html', {
+        'url': url,
+        'attribute': attribute,
+        'scraped_data': None,
+    })
+
+
+def scrape_with_element_group(request):
+    url = request.GET.get('url')
+    element_group = request.GET.get('element_group')
+
+    if url and element_group:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = scrape_with_element_group(html_content, element_group)
+            return render(request, 'scrape_with_element_group.html', {
+                'url': url,
+                'element_group': element_group,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_element_group.html', {
+        'url': url,
+        'element_group': element_group,
+        'scraped_data': None,
+    })
+def scrape_with_attribute_group(request):
+    url = request.GET.get('url')
+    attribute_group = request.GET.get('attribute_group')
+
+    if url and attribute_group:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = utils_scrape_with_attribute_group(html_content, attribute_group)
+            return render(request, 'scrape_with_attribute_group.html', {
+                'url': url,
+                'attribute_group': attribute_group,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_attribute_group.html', {
+        'url': url,
+        'attribute_group': attribute_group,
+        'scraped_data': None,
+    })
+
+def scrape_with_tag_group(request):
+    url = request.GET.get('url')
+    tag_group = request.GET.get('tag_group')
+
+    if url and tag_group:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = utils_scrape_with_tag_group(html_content, tag_group)
+            return render(request, 'scrape_with_tag_group.html', {
+                'url': url,
+                'tag_group': tag_group,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_tag_group.html', {
+        'url': url,
+        'tag_group': tag_group,
         'scraped_data': None,
     })

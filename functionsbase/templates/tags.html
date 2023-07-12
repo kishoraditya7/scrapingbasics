@@ -10,7 +10,8 @@
     {% if tags %}
         <ul>
             {% for tag in tags %}
-                <li>{{ tag }}</li>
+                <li><a href="/scrape_with_tag/?url={{url}}&tag={{tag}}">{{ tag }}</a></li>
+        
             {% endfor %}
         </ul>
     {% else %}
@@ -21,7 +22,8 @@
     {% if tag_groups %}
         <ul>
             {% for tag_group in tag_groups %}
-                <li>{{ tag_group }}</li>
+                <li><a href="/scrape_with_tag_group/?url={{url}}&tag_group={{tag_group}}">{{ tag_group }}</a></li>
+            
             {% endfor %}
         </ul>
     {% else %}
