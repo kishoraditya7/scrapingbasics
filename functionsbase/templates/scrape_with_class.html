@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scrape with Class</title>
+    </head>
+    <body>
+        <h1>Scrape with Class</h1>
+
+        <form action="{% url 'scrape-with-class' %}" method="get">
+            <input type="hidden" name="url" value="{{ url }}">
+            <label for="class_name">Class Name:</label>
+            <input type="text" id="class_name" name="class_name" required>
+            <input type="submit" value="Scrape">
+        </form>
+
+        {% if scraped_data %}
+            {% for data in scraped_data %}
+                <pre>{{ data }}</pre>
+            {% endfor %}
+        {% else %}
+            <p>No data scraped</p>
+        {% endif %}
+    </body>
+</html>

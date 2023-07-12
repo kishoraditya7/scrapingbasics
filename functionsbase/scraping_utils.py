@@ -108,3 +108,28 @@ def scrape_all_attributes(html_content, parser='html.parser'):
             attribute_groups.append(', '.join(attribute_group))
 
     return list(attributes), list(attribute_groups)
+
+def scrape_with_class(html_content, class_name, parser='html.parser'):
+    soup = BeautifulSoup(html_content, parser)
+    selected_elements = soup.find_all(class_=class_name)
+    scraped_data = [element.prettify() for element in selected_elements]
+    return scraped_data
+
+
+def scrape_with_class_group(html_content, class_group, parser='html.parser'):
+    soup = BeautifulSoup(html_content, parser)
+    selected_elements = soup.find_all(class_=class_group.split(','))
+    scraped_data = [element.get_text(strip=True) for element in selected_elements]
+    return scraped_data
+
+def scrape_with_class_helper(html_content, class_name):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(class_=class_name)
+    scraped_data = [element.get_text(strip=True) for element in selected_elements]
+    return scraped_data
+
+def scrape_with_class_group_helper(html_content, class_group):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    selected_elements = soup.find_all(class_=class_group.split(','))
+    scraped_data = [element.get_text(strip=True) for element in selected_elements]
+    return scraped_data

@@ -21,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]"""
 from django.urls import path
-from functionsbase.views import index, results, robots_txt, html_code, html_code_parser,parse_tree, classes, elements, tags, attributes
+from functionsbase.views import index, results, robots_txt, html_code, html_code_parser,parse_tree, classes, elements, tags, attributes, scrape_with_class, scrape_with_class_group
 
 urlpatterns = [
     path('', index, name='index'),
@@ -34,6 +34,8 @@ urlpatterns = [
     path('elements/', elements, name='elements'),
     path('tags/', tags, name='tags'),
     path('attributes/', attributes, name='attributes'),
+    path('scrape-with-class/', scrape_with_class, name='scrape-with-class'),
+    path('scrape-with-class-group/', scrape_with_class_group, name='scrape-with-class-group'),
     ]
 
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scrape with Class Group</title>
+    </head>
+    <body>
+        <h1>Scrape with Class Group</h1>
+
+        <form action="{% url 'scrape-with-class-group' %}" method="get">
+            <input type="hidden" name="url" value="{{ url }}">
+            <label for="class_group">Class Group:</label>
+            <input type="text" id="class_group" name="class_group" required>
+            <input type="submit" value="Scrape">
+        </form>
+
+        {% if scraped_data %}
+            {% for data in scraped_data %}
+                <pre>{{ data }}</pre>
+            {% endfor %}
+        {% else %}
+            <p>No data scraped</p>
+        {% endif %}
+    </body>
+</html>

@@ -12,6 +12,10 @@ from .scraping_utils import (
     scrape_all_attributes,
     scrape_all_elements,
     scrape_all_tags,
+    scrape_with_class, 
+    scrape_with_class_group,
+    scrape_with_class_helper,
+    scrape_with_class_group_helper,
 )
 
 def index(request):
@@ -124,6 +128,7 @@ def classes(request):
     return render(request, 'classes.html', {
         'classes': classes,
         'class_groups': class_groups,
+        'url': url,
     })
     
 def elements(request):
@@ -134,6 +139,7 @@ def elements(request):
     return render(request, 'elements.html', {
         'elements': elements,
         'element_groups': element_groups,
+        'url': url,
     })
 
 def tags(request):
@@ -144,6 +150,7 @@ def tags(request):
     return render(request, 'tags.html', {
         'tags': tags,
         'tag_groups': tag_groups,
+        'url': url,
     })
 
 def attributes(request):
@@ -154,6 +161,47 @@ def attributes(request):
     return render(request, 'attributes.html', {
         'attributes': attributes,
         'attribute_groups': attribute_groups,
+        'url': url,
     })
     
 
+def scrape_with_class(request):
+    url = request.GET.get('url')
+    class_name = request.GET.get('class_name')
+
+    if url and class_name:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = scrape_with_class_helper(html_content, class_name)
+            return render(request, 'scrape_with_class.html', {
+                'url': url,
+                'class_name': class_name,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_class.html', {
+        'url': url,
+        'class_name': class_name,
+        'scraped_data': None,
+    })
+
+
+def scrape_with_class_group(request):
+    url = request.GET.get('url')
+    class_group = request.GET.get('class_group')
+
+    if url and class_group:
+        html_content = scrape_url(url)
+        if html_content:
+            scraped_data = scrape_with_class_group_helper(html_content, class_group)
+            return render(request, 'scrape_with_class_group.html', {
+                'url': url,
+                'class_group': class_group,
+                'scraped_data': scraped_data,
+            })
+
+    return render(request, 'scrape_with_class_group.html', {
+        'url': url,
+        'class_group': class_group,
+        'scraped_data': None,
+    })
