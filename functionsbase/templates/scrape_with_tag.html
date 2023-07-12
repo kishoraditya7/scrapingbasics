@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scrape with Tag</title>
+    </head>
+    <body>
+        <h1>Scrape with Tag</h1>
+
+        <h2>URL: {{ url }}</h2>
+        <h2>Tag: {{ tag }}</h2>
+
+        <h3>Scraped Data:</h3>
+        {% if scraped_data %}
+            <ul>
+                {% for data in scraped_data %}
+                    <li>{{ data }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No data found</p>
+        {% endif %}
+    </body>
+</html>

@@ -1,31 +1,37 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>Elements</title>
 </head>
 <body>
     <h1>Elements</h1>
 
-    <h2>All Elements</h2>
+    <h2>URL: {{ url }}</h2>
+
+    <h3>Elements:</h3>
     {% if elements %}
         <ul>
             {% for element in elements %}
-                <li>{{ element }}</li>
+                <li><a href="/scrape_with_element/?url={{url}}&element={{element}}">{{ element }}</a></li>
+            {% endfor %}
+            {% for value_element in value_elements %}
+                <li>{{ value_element }}</li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No individual Elements found</p>
+        <p>No elements found</p>
     {% endif %}
 
-    <h2>Element Groups</h2>
+    <h2>All Elements</h2>
     {% if element_groups %}
         <ul>
             {% for element_group in element_groups %}
-                <li>{{ element_group }}</li>
+            <li><a href="/scrape_with_element_group/?url={{url}}&element_group={{element_group}}">{{ element_group }}</a></li>
+            
+            {% endfor %}
+            {% for value_element_group in value_element_groups %}
+                <li>{{ value_element_group }}</li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No Element groups found</p>
     {% endif %}
 </body>
-</html>

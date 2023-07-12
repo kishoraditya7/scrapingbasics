@@ -21,7 +21,27 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]"""
 from django.urls import path
-from functionsbase.views import index, results, robots_txt, html_code, html_code_parser,parse_tree, classes, elements, tags, attributes
+from functionsbase.views import (
+    index, 
+    results, 
+    robots_txt, 
+    html_code, 
+    html_code_parser,
+    parse_tree, 
+    classes, 
+    elements, 
+    tags, 
+    attributes, 
+    scrape_with_class, 
+    scrape_with_class_group, 
+    scrape_with_attribute,
+    scrape_with_element, 
+    scrape_with_tag, 
+    scrape_with_element_group,
+    scrape_with_attribute_group,
+    scrape_with_tag_group,
+    )
+
 
 urlpatterns = [
     path('', index, name='index'),
@@ -34,6 +54,14 @@ urlpatterns = [
     path('elements/', elements, name='elements'),
     path('tags/', tags, name='tags'),
     path('attributes/', attributes, name='attributes'),
+    path('scrape-with-class/', scrape_with_class, name='scrape-with-class'),
+    path('scrape-with-class-group/', scrape_with_class_group, name='scrape-with-class-group'),
+    path('scrape_with_element/', scrape_with_element, name='scrape_with_element'),
+    path('scrape_with_tag/', scrape_with_tag, name='scrape_with_tag'),
+    path('scrape_with_attribute/', scrape_with_attribute, name='scrape_with_attribute'),
+    path('scrape_with_element_group/', scrape_with_element_group, name='scrape_with_element_group'),
+    path('scrape_with_attribute_group/', scrape_with_attribute_group, name='scrape_with_attribute_group'),
+    path('scrape_with_tag_group/', scrape_with_tag_group, name='scrape_with_tag_group'),
     ]
 
 

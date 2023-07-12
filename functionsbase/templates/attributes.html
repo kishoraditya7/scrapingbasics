@@ -10,7 +10,8 @@
     {% if attributes %}
         <ul>
             {% for attribute in attributes %}
-                <li>{{ attribute }}</li>
+                
+                <li><a href="/scrape_with_attribute/?url={{url}}&attribute={{attribute}}">{{ attribute }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
@@ -21,7 +22,7 @@
     {% if attribute_groups %}
         <ul>
             {% for attribute_group in attribute_groups %}
-                <li>{{ attribute_group }}</li>
+            <li><a href="/scrape_with_attribute_group/?url={{url}}&attribute_group={{attribute_group}}">{{ attribute_group }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
