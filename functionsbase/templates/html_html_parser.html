@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML using html.parser</title>
+</head>
+<body>
+    {% block content %}
+        <h1>HTML using html.parser</h1>
+        <p>URL: {{ url }}</p>
+        <li><a href="{% url 'demos' %}?url={{ url }}">demo</a></li>
+        <pre>{{ scraped_data }}</pre>
+    {% endblock %}
+</body>
+</html>

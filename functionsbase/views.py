@@ -23,6 +23,8 @@ from .scraping_utils import (
     scrape_with_element_group,
     parse_attribute_group,
     scrape_with_tag_group as utils_scrape_with_tag_group,
+    scrape_website,
+    scrape_html_file,
 )
 
 def index(request):
@@ -52,6 +54,13 @@ def results(request):
     elements_url = f"/elements/?url={url}"
     tags_url = f"/tags/?url={url}"
     attributes_url = f"/attributes/?url={url}"
+    html_requests_url = f"/html_requests/?url={url}"
+    html_html_parser_url = f"/html_html_parser/?url={url}"
+    html_lxml_url = f"/html_lxml/?url={url}"
+    html_lxml_xml_url = f"/html_lxml_xml/?url={url}"
+    html_html5lib_url = f"/html_html5lib/?url={url}"
+    tree_design_url = f"/tree_design/?url={url}"
+    sitemap_url = f"/sitemap/?url={url}"
     
     return render(request, 'results.html', {
         'url': url,
@@ -77,6 +86,13 @@ def results(request):
         'attribute_groups':attribute_groups,
         'value_elements':value_elements, 
         'value_element_groups':value_element_groups,
+        'html_requests_url': html_requests_url,
+        'html_html_parser_url': html_html_parser_url,
+        'html_lxml_url': html_lxml_url,
+        'html_lxml_xml_url': html_lxml_xml_url,
+        'html_html5lib_url': html_html5lib_url,
+        'tree_design_url': tree_design_url,
+        'sitemap_url': sitemap_url,
     })
 
 
@@ -338,3 +354,56 @@ def scrape_with_tag_group(request):
         'tag_group': tag_group,
         'scraped_data': None,
     })
+
+def scrape(request):
+    url = request.GET.get('url')
+    
+    if url:
+        data = scrape_website(url)
+        return render(request, 'results.html', {
+            'url': url,
+            'data': data,
+        })
+    
+    return render(request, 'index.html')
+
+def html_requests(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('HTML using requests')
+    return render(request, 'html_requests.html', {'url': url, 'scraped_data': scraped_data})
+
+def html_html_parser(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('HTML using html.parser')
+    soup_html_parser = request.GET.get('soup_html_parser')
+    return render(request, 'html_html_parser.html', {'url': url, 'scraped_data': scraped_data, 'soup_html_parser': soup_html_parser})
+
+def demos(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_html_file(url)
+    return render(request, 'demos.html', { 'scraped_data': scraped_data})
+
+def html_lxml(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('HTML using lxml')
+    return render(request, 'html_lxml.html', {'url': url, 'scraped_data': scraped_data})
+
+def html_lxml_xml(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('HTML using lxml-xml')
+    return render(request, 'html_lxml_xml.html', {'url': url, 'scraped_data': scraped_data})
+
+def html_html5lib(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('HTML using html5lib')
+    return render(request, 'html_html5lib.html', {'url': url, 'scraped_data': scraped_data})
+
+def tree_design(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('Parsed Tree Design')
+    return render(request, 'tree_design.html', {'url': url, 'scraped_data': scraped_data})
+
+def sitemap(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_website(url).get('Sitemap')
+    return render(request, 'sitemap.html', {'url': url, 'scraped_data': scraped_data})
