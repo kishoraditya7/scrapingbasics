@@ -24,6 +24,7 @@ from .scraping_utils import (
     parse_attribute_group,
     scrape_with_tag_group as utils_scrape_with_tag_group,
     scrape_website,
+    scrape_html_file,
 )
 
 def index(request):
@@ -374,7 +375,13 @@ def html_requests(request):
 def html_html_parser(request):
     url = request.GET.get('url')
     scraped_data = scrape_website(url).get('HTML using html.parser')
-    return render(request, 'html_html_parser.html', {'url': url, 'scraped_data': scraped_data})
+    soup_html_parser = request.GET.get('soup_html_parser')
+    return render(request, 'html_html_parser.html', {'url': url, 'scraped_data': scraped_data, 'soup_html_parser': soup_html_parser})
+
+def demos(request):
+    url = request.GET.get('url')
+    scraped_data = scrape_html_file(url)
+    return render(request, 'demos.html', { 'scraped_data': scraped_data})
 
 def html_lxml(request):
     url = request.GET.get('url')

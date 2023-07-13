@@ -47,6 +47,7 @@ from functionsbase.views import (
     html_html5lib,
     tree_design,
     sitemap,
+    demos,
     )
 
 
@@ -76,6 +77,7 @@ urlpatterns = [
     path('html_html5lib/', html_html5lib, name='html_html5lib'),
     path('tree_design/', tree_design, name='tree_design'),
     path('sitemap/', sitemap, name='sitemap'),
+    path('demos/', demos, name='demos'),
     ]
 
 
