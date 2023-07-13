@@ -40,6 +40,13 @@ from functionsbase.views import (
     scrape_with_element_group,
     scrape_with_attribute_group,
     scrape_with_tag_group,
+    html_requests,
+    html_html_parser,
+    html_lxml,
+    html_lxml_xml,
+    html_html5lib,
+    tree_design,
+    sitemap,
     )
 
 
@@ -62,6 +69,13 @@ urlpatterns = [
     path('scrape_with_element_group/', scrape_with_element_group, name='scrape_with_element_group'),
     path('scrape_with_attribute_group/', scrape_with_attribute_group, name='scrape_with_attribute_group'),
     path('scrape_with_tag_group/', scrape_with_tag_group, name='scrape_with_tag_group'),
+    path('html_requests/', html_requests, name='html_requests'),
+    path('html_html_parser/', html_html_parser, name='html_html_parser'),
+    path('html_lxml/', html_lxml, name='html_lxml'),
+    path('html_lxml_xml/', html_lxml_xml, name='html_lxml_xml'),
+    path('html_html5lib/', html_html5lib, name='html_html5lib'),
+    path('tree_design/', tree_design, name='tree_design'),
+    path('sitemap/', sitemap, name='sitemap'),
     ]
 
 

@@ -6,6 +6,15 @@
     <body>
         <h1>Results</h1>
 
+        
+        <li><a href="{% url 'html_requests' %}?url={{ url }}">HTML using requests</a></li>
+    <li><a href="{% url 'html_html_parser' %}?url={{ url }}">HTML using html.parser</a></li>
+    <li><a href="{% url 'html_lxml' %}?url={{ url }}">HTML using lxml</a></li>
+    <li><a href="{% url 'html_lxml_xml' %}?url={{ url }}">HTML using lxml-xml</a></li>
+    <li><a href="{% url 'html_html5lib' %}?url={{ url }}">HTML using html5lib</a></li>
+    <li><a href="{% url 'tree_design' %}?url={{ url }}">Parsed Tree Design</a></li>
+    <li><a href="{% url 'sitemap' %}?url={{ url }}">Sitemap</a></li>
+
         <h2>Robots.txt</h2>
         {% if has_robots_txt %}
             <p><a href="/robots-txt/?url={{ url }}">robots.txt of {{ url }}</a></p>

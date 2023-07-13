@@ -194,3 +194,42 @@ def scrape_with_tag_group(html_content, tag_group):
     selected_elements = soup.select(tag_group)
     scraped_data = [str(element) for element in selected_elements]
     return scraped_data
+
+def scrape_website(url):
+    # Scraping HTML using requests
+    response = requests.get(url)
+    html_requests = response.text
+    
+    # Scraping HTML using html.parser
+    soup_html_parser = BeautifulSoup(html_requests, 'html.parser')
+    html_html_parser = soup_html_parser.prettify()
+    
+    # Scraping HTML using lxml
+    soup_lxml = BeautifulSoup(html_requests, 'lxml')
+    html_lxml = soup_lxml.prettify()
+    
+    # Scraping HTML using lxml-xml
+    soup_lxml_xml = BeautifulSoup(html_requests, 'lxml-xml')
+    html_lxml_xml = soup_lxml_xml.prettify()
+    
+    # Scraping HTML using html5lib
+    soup_html5lib = BeautifulSoup(html_requests, 'html5lib')
+    html_html5lib = soup_html5lib.prettify()
+    
+    # Parsed tree design
+    tree_design = soup_html_parser.prettify()
+    
+    # Sitemap
+    sitemap = []
+    for link in soup_html_parser.find_all('a', href=True):
+        sitemap.append(link['href'])
+    
+    return {
+        'HTML using requests': html_requests,
+        'HTML using html.parser': html_html_parser,
+        'HTML using lxml': html_lxml,
+        'HTML using lxml-xml': html_lxml_xml,
+        'HTML using html5lib': html_html5lib,
+        'Parsed Tree Design': tree_design,
+        'Sitemap': sitemap
+    }
